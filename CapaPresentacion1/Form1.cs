@@ -14,21 +14,41 @@ namespace CapaPresentacion1
 {
     public partial class Form1 : Form
     {
-  
+        private PersonaNegocio personaNegocio= new PersonaNegocio();
         public Form1()
         {
             InitializeComponent();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
+            
         {
+            //
             String name =txtNombre.Text;
             DateTime dateCreacion = fechaCreacion.Value;
             DateTime dataUpdate = dateCreacion;
-            // cuando creo una persona la fecha de actualizacion es la misma de creacion cuando lo hago por primera vez
-            //aca me tengo comunicar con la capa de negocio para que lo agregue?
+            Person person = new Person();
+            person.Name = name;
+            person.Created = dateCreacion;
+            person.Updated = dataUpdate;
+            personaNegocio.Insert(person);
+            if (personaNegocio.Insert(person)!=null) {
+                MessageBox.Show("Se agrego correctamente la Persona");
+            }
+            else
+            {
+                MessageBox.Show("No se puede agregar la Persona");
+            }
+ 
+        }
+
+       
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
             
-           
+          
+
         }
     }
 }

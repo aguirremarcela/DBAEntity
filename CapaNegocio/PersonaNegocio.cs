@@ -10,27 +10,43 @@ using System.Threading.Tasks;
 
 namespace CapaNegocio
 {
-    public interface IPersonaNegocio
-    {
-        Person Insert(String name, DateTime d, DateTime d2);
-    }
-    public class PersonaNegocio: IPersonaNegocio
+   
+    public class PersonaNegocio 
 
     {
-        private Person person = null;
-        private readonly IGenericRepository<Person> _personaRepository;
-        public PersonaNegocio(IGenericRepository<Person> personaRepository)
+        private readonly PersonaRepository _personaRepository;
+        public PersonaNegocio()
         {
-            _personaRepository = personaRepository;
+            _personaRepository = new PersonaRepository(new DBEjemploEntities());
         }
-      public Person Insert(String name, DateTime d, DateTime up)
+
+        public bool Delete(int id)
         {
-           
-            person.Name = name;
-            person.Created = d;
-            person.Updated = up;
-            // aca debos hacer las validaciones de lo que me trae desde el formulario 
-            return _personaRepository.Insert(person);   
+            throw new NotImplementedException();
+        }
+
+        public List<Person> GetAll()
+        {
+            return (List<Person>)_personaRepository.GetAll();
+        }
+
+        public Person Insert(Person person)
+        {
+           if (person.Name.Length < 8)
+            {
+                return _personaRepository.Insert(person);
+            }
+            else
+            {
+                return null;
+            }   
+        }
+
+     
+
+        public void Update(Person t)
+        {
+            throw new NotImplementedException();
         }
     }
 }
